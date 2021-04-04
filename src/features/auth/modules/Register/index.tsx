@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Grid, Step, StepLabel, Stepper } from '@material-ui/core'
+import { API_URL } from 'config'
 // import Recaptcha from 'react-google-recaptcha'
 import {
   Formik,
@@ -31,6 +32,8 @@ import {
 // const sleep = (time: number) => new Promise((acc) => setTimeout(acc, time))
 
 export default function Register() {
+  console.log(API_URL)
+
   const dispatchUser = useDispatchUser()
   const [mechanicalVentilation, setMechanicalVentilation] = useState('')
   const handleChange = (e: any) => {
@@ -80,7 +83,6 @@ export default function Register() {
 
             password: '',
             confirmPassword: '',
-            // recaptcha: '',
           }}
           // onSubmit={async (values) => {
           //   await sleep(3000)
@@ -126,7 +128,7 @@ export default function Register() {
               password,
               confirmPassword,
             },
-            // { username, email, password },
+
             { setSubmitting, setFieldError }
           ) => {
             try {

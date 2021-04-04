@@ -1,11 +1,6 @@
 import styled from 'styled-components/macro'
 
-interface ButtonProps {
-  wide?: boolean
-  state?: string
-  variant: string
-  size: string
-}
+import { ButtonProps } from 'ui/interfaces'
 
 export default styled.button<ButtonProps>`
   text-decoration: none;
@@ -30,7 +25,7 @@ export default styled.button<ButtonProps>`
     variant,
     state,
     theme: {
-      colors: { accent, white, lightAccent, stateColors },
+      colors: { accent, red, white, lightAccent, stateColors },
     },
   }) => {
     switch (variant) {
@@ -55,6 +50,18 @@ export default styled.button<ButtonProps>`
 						color: ${white};
 						border-color: ${state ? stateColors[state] : accent} 1px solid;
 					}
+				`
+      case 'danger':
+        return `
+				color: ${white};
+				background: ${state ? stateColors[state] : red};
+				border: 1px solid transparent;
+
+				&:hover {
+					color: ${state ? stateColors[state] : red};
+					background: ${white};
+					border: ${state ? stateColors[state] : red} 1px solid;
+				}
 				`
       default:
         return null

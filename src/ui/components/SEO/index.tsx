@@ -9,12 +9,7 @@ import {
   TWITTER_ACCOUNT_URL,
 } from 'config'
 
-interface SEOProps {
-  url?: string
-  title?: string
-  description?: string
-  cover?: string
-}
+import { SEOProps } from 'ui/interfaces'
 
 const SEO = ({
   url,

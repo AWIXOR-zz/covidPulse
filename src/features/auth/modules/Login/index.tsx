@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Recaptcha from 'react-google-recaptcha'
+// import Recaptcha from 'react-google-recaptcha'
 import Spinner from 'react-spinkit'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import { ENVIRONMENT, RECAPTCHA_PUBLIC_KEY } from 'config'
+// import { ENVIRONMENT } from 'config'
 import Container from 'ui/components/Container'
 import InputField from 'ui/components/InputField'
 import ErrorField from 'ui/components/ErrorField'
@@ -31,19 +31,10 @@ const Login = () => {
           initialValues={{
             email: '',
             password: '',
-            recaptcha: '',
           }}
           validationSchema={Yup.object().shape({
             email: Yup.string().email().required(),
             password: Yup.string().required(),
-            recaptcha:
-              (ENVIRONMENT !== 'development' &&
-                Yup.string().required(
-                  'Robots are not welcome yet! maybe soon 😊'
-                )) ||
-              Yup.boolean().required(
-                'Robots are not welcome yet! maybe soon 😊'
-              ),
           })}
           onSubmit={async (
             { email, password },
@@ -83,21 +74,6 @@ const Login = () => {
                   />
                   <ErrorMessage component={ErrorField} name="password" />
                 </InputField>
-                {ENVIRONMENT !== 'development' && (
-                  <InputField
-                    error={errors.recaptcha && touched.recaptcha ? true : false}
-                  >
-                    <Field
-                      component={Recaptcha}
-                      sitekey={RECAPTCHA_PUBLIC_KEY}
-                      name="recaptcha"
-                      onChange={(value: string | boolean) =>
-                        setFieldValue('recaptcha', value)
-                      }
-                    />
-                    <ErrorMessage component={ErrorField} name="recaptcha" />
-                  </InputField>
-                )}
                 <Center>
                   <Button
                     type="submit"
