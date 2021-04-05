@@ -1,4 +1,5 @@
 export const BASE_URL = process.env.REACT_APP_PROD_API
+export const API_URL = process.env.REACT_APP_API_URL
 export const UPLOAD_SERVICE_API = process.env.REACT_APP_UPLOAD_SERVICE_API
 export const EMAIL_API = process.env.REACT_APP_EMAIL_API
 export const ENVIRONMENT = process.env.REACT_APP_ENVIRONMENT

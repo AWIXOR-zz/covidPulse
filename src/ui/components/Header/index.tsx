@@ -30,7 +30,7 @@ const Header = () => {
             </Button>
           ) : (
             <>
-              <NavLink activeClassName="active" exact to="/">
+              <NavLink activeClassName="active" exact to="/signin">
                 Login
               </NavLink>
               <Button as={NavLink} to="/signup" size="large" variant="primary">

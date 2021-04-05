@@ -2,7 +2,7 @@ import history from 'helpers/history'
 import axios from 'axios'
 import setAuthToken from 'helpers/setAuthToken'
 import storage from 'helpers/storage'
-import { BASE_URL } from 'config'
+import { API_URL } from 'config'
 import { DispatchUser } from 'features/auth/interfaces'
 
 export type UserValues = {
@@ -69,8 +69,19 @@ export const login = async ({
   values,
 }: LoginSigninArgs) => {
   try {
-    const { data } = await axios.post(`${BASE_URL}auth/signin`, values)
+    console.log(values)
+
+    // Here is the axios call for user login
+    const { data } = await axios.post(`${API_URL}auth/login`, values, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    })
+    console.log(data)
+
     setAuthToken(data.token)
+    console.log(data.token)
 
     dispatchUser({ type: 'SAVE_USER', payload: data?.user })
 
@@ -79,7 +90,7 @@ export const login = async ({
 
     history.push('/')
   } catch (err) {
-    setFieldError('email', err?.response?.data)
+    setFieldError('email', err?.response?.data.message)
   }
 }
 
@@ -90,7 +101,18 @@ export const register = async ({
   values,
 }: LoginSignupArgs) => {
   try {
-    const { data } = await axios.post(`${BASE_URL}auth/signup`, values)
+    console.log(values)
+
+    // Here is the axios call for registering a venue
+
+    const { data } = await axios.post(`${API_URL}auth/register`, values, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    })
+    console.log(data)
+
     setAuthToken(data.token)
 
     dispatchUser({ type: 'SAVE_USER', payload: data?.user })
@@ -100,7 +122,7 @@ export const register = async ({
 
     history.push('/')
   } catch (err) {
-    setFieldError('email', err?.response?.data)
+    setFieldError('email', err?.response?.data.message)
   }
 }
 
