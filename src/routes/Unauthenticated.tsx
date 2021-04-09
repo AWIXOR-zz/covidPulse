@@ -6,6 +6,7 @@ import Register from 'features/auth/modules/Register'
 import Header from 'ui/components/Header'
 import Home from 'features/home/modules/Home/index'
 import Search from 'features/search/modules/Search/index'
+import Footer from 'ui/components/Footer'
 
 const NotFound = () => <h2>404 Not Found</h2>
 
@@ -19,6 +20,7 @@ const Unauthenticated = () => (
       <Route path="/signup" component={Register} />
       <Route component={NotFound} />
     </Switch>
+    <Footer />
   </Router>
 )
 

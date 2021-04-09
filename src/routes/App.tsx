@@ -5,6 +5,7 @@ import useUser from 'features/auth/hooks/useUser'
 import GlobalStyle from 'ui/theme/global-style'
 import { ThemeProvider } from 'styled-components'
 import theme from 'ui/theme/theme'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const Authenticated = lazy(() => import('./Authenticated'))
 const Unauthenticated = lazy(() => import('./Unauthenticated'))
