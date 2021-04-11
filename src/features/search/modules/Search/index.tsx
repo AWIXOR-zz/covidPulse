@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from 'ui/components/Container'
 import styled from 'styled-components'
 import SEO from 'ui/components/SEO'
@@ -23,6 +23,7 @@ import Dancing from 'assets/icons/Dancing'
 import SmallSize from 'assets/icons/SmallSize'
 import MediumSize from 'assets/icons/MediumSize'
 import LargeSize from 'assets/icons/LargeSize'
+import { VenueData } from 'ui/interfaces'
 const Flex = styled.div`
   display: flex;
   flex-direction: row;
@@ -47,6 +48,20 @@ const IconsList = styled.div`
   flex-wrap: wrap;
 `
 export default function Search() {
+  const [venues, setVenues] = useState<VenueData[]>(items)
+  const [search, setSearch] = useState('')
+  const [filteredResults, setFilteredResults] = useState<VenueData[]>([])
+
+  useEffect(() => {
+    setFilteredResults(
+      venues.filter(
+        (venue) =>
+          venue.name.toLowerCase().includes(search.toLowerCase()) ||
+          venue.location.toLowerCase().includes(search.toLowerCase())
+      )
+    )
+  }, [search, venues])
+
   return (
     <Container>
       <SEO url="/" title="Home" />
@@ -57,12 +72,13 @@ export default function Search() {
         <input
           type="text"
           name="search"
+          onChange={(e) => setSearch(e.target.value)}
           placeholder="search for venue by name or location"
         />
       </InputField>
       {/* <CardWrapper as={Card}> */}
       <Flex>
-        {items.map((item, index) => (
+        {filteredResults.map((item, index) => (
           <CardItem as={Card} key={index}>
             <Typography as="h2" fontSize={18} align="center">
               {item.name}

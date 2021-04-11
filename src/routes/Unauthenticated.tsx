@@ -7,6 +7,7 @@ import Header from 'ui/components/Header'
 import Home from 'features/home/modules/Home/index'
 import Search from 'features/search/modules/Search/index'
 import Footer from 'ui/components/Footer'
+import VenueDetails from 'features/venue/modules/venue'
 
 const NotFound = () => <h2>404 Not Found</h2>
 
@@ -17,6 +18,7 @@ const Unauthenticated = () => (
       <Route path="/" exact component={Home} />
       <Route path="/search" component={Search} />
       <Route path="/signin" component={Login} />
+      <Route path="/venue-details" component={VenueDetails} />
       <Route path="/signup" component={Register} />
       <Route component={NotFound} />
     </Switch>

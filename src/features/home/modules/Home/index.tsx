@@ -23,6 +23,7 @@ const FlexItem = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  margin: 1rem;
 `
 
 const GridItem = styled.div`
@@ -73,46 +74,46 @@ export default function Home() {
       <Typography as="p" fontSize={42} align="center">
         Features
       </Typography>
-      <CardWrapper as={Card}>
-        <Flex>
-          <FlexItem>
-            <Circle>
-              <Safety />
-            </Circle>
-            <Typography as="h2" fontSize={18} align="center">
-              Understand the safety precautions present at the venue
-            </Typography>
-            <Typography as="p" fontSize={14} align="center" fontWeight={400}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-              voluptatum, consequuntur unde a vel veniam quaerat?
-            </Typography>
-          </FlexItem>
-          <FlexItem>
-            <Circle>
-              <CovidRates />
-            </Circle>
-            <Typography as="h2" fontSize={18} align="center">
-              View Real-Time Covid rates at venue location
-            </Typography>
-            <Typography as="p" fontSize={14} align="center" fontWeight={400}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-              voluptatum, consequuntur unde a vel veniam quaerat?
-            </Typography>
-          </FlexItem>
-          <FlexItem>
-            <Circle>
-              <Network />
-            </Circle>
-            <Typography as="h2" fontSize={18} align="center">
-              See how busy the venue is
-            </Typography>
-            <Typography as="p" fontSize={14} align="center" fontWeight={400}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-              voluptatum, consequuntur unde a vel veniam quaerat?
-            </Typography>
-          </FlexItem>
-        </Flex>
-      </CardWrapper>
+      {/* <CardWrapper > */}
+      <Flex>
+        <FlexItem as={Card}>
+          <Circle>
+            <Safety />
+          </Circle>
+          <Typography as="h2" fontSize={18} align="center">
+            Understand the safety precautions present at the venue
+          </Typography>
+          <Typography as="p" fontSize={14} align="center" fontWeight={400}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
+            voluptatum, consequuntur unde a vel veniam quaerat?
+          </Typography>
+        </FlexItem>
+
+        <FlexItem as={Card}>
+          <Circle>
+            <CovidRates />
+          </Circle>
+          <Typography as="h2" fontSize={18} align="center">
+            View Real-Time Covid rates at venue location
+          </Typography>
+          <Typography as="p" fontSize={14} align="center" fontWeight={400}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
+            voluptatum, consequuntur unde a vel veniam quaerat?
+          </Typography>
+        </FlexItem>
+        <FlexItem as={Card}>
+          <Circle>
+            <Network />
+          </Circle>
+          <Typography as="h2" fontSize={18} align="center">
+            See how busy the venue is
+          </Typography>
+          <Typography as="p" fontSize={14} align="center" fontWeight={400}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
+            voluptatum, consequuntur unde a vel veniam quaerat?
+          </Typography>
+        </FlexItem>
+      </Flex>
     </Container>
   )
 }
