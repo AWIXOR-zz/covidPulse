@@ -12,8 +12,8 @@ const Mask: React.FC<SVGProps> = (props: SVGProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g id="Page-1" fill="none" fill-rule="evenodd">
-        <g id="022---Surgical-Mask" fill={color} fill-rule="nonzero">
+      <g id="Page-1" fill="none" fillRule="evenodd">
+        <g id="022---Surgical-Mask" fill={color} fillRule="nonzero">
           <path
             id="Shape"
             d="m16.7 24.955c4.3051096 1.3459402 8.789399 2.0313959 13.3 2.033 4.510601-.0016041 8.9948904-.6870598 13.3-2.033.3411886-.1061079.5998521-.3861776.6785543-.7347095.0787022-.348532-.0345136-.712576-.297-.955-.2624865-.2424241-.6343657-.3263984-.9755543-.2202905-8.2706401 2.589997-17.1353599 2.589997-25.406 0-.5274319-.1640286-1.0879714.1305681-1.252.658s.1305681 1.0879714.658 1.252z"
