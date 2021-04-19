@@ -19,6 +19,7 @@ export type VenueValues = {
   capacityLimit: string
   indoorCapacity: string
   outdoorCapacity: string
+  timeSpentAtVenue: number
 
   naturalVentilation: string
   mechanicalVentilation: string

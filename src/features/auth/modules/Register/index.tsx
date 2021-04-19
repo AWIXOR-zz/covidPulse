@@ -32,8 +32,6 @@ import {
 // const sleep = (time: number) => new Promise((acc) => setTimeout(acc, time))
 
 export default function Register() {
-  console.log(API_URL)
-
   const dispatchUser = useDispatchUser()
   const [mechanicalVentilation, setMechanicalVentilation] = useState('')
   const handleChange = (e: any) => {
@@ -54,10 +52,11 @@ export default function Register() {
             capacityLimit: '',
             indoorCapacity: '',
             outdoorCapacity: '',
+            timeSpentAtVenue: '',
 
             naturalVentilation: '',
             mechanicalVentilation: '',
-            airCirculation: '',
+            airCirculation: 'No',
 
             tables: '',
             tablesSeperation: '',
@@ -98,6 +97,7 @@ export default function Register() {
               capacityLimit,
               indoorCapacity,
               outdoorCapacity,
+              timeSpentAtVenue,
 
               naturalVentilation,
               mechanicalVentilation,
@@ -145,6 +145,7 @@ export default function Register() {
                   capacityLimit,
                   indoorCapacity,
                   outdoorCapacity,
+                  timeSpentAtVenue,
 
                   naturalVentilation,
                   mechanicalVentilation,
@@ -251,6 +252,14 @@ export default function Register() {
               />
               <ErrorMessage component={ErrorField} name="outdoorCapacity" />
             </InputField>
+            <InputField label="Time spent at venue in minutes">
+              <Field
+                type="number"
+                name="timeSpentAtVenue"
+                placeholder="How long do people usually spend at your venue?"
+              />
+              <ErrorMessage component={ErrorField} name="timeSpentAtVenue" />
+            </InputField>
           </FormikStep>
           <FormikStep
             label="Ventilation"
@@ -288,7 +297,7 @@ export default function Register() {
             </InputField>
             {mechanicalVentilation === 'Yes' ? (
               <InputField label="Air Circulation">
-                <Field as="select" name="airCirculation">
+                <Field as="select" name="airCirculation" defaultValue="No">
                   <option
                     value=""
                     label="If you have fans / AC, do they recirculate indoor air or source it from outside?"

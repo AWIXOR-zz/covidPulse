@@ -35,3 +35,18 @@ export interface SVGProps {
   height?: string
   color?: string
 }
+
+export interface VenueData {
+  id?: number
+  name: string
+  image: string
+  location: string
+  score: number
+  mask: boolean
+  handSanitizer: boolean
+  capacity: number
+  alcohol: boolean
+  socialDistancing: string
+  covidLevel: string
+  Activities: string[]
+}
