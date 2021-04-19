@@ -23,7 +23,6 @@ import { Link } from 'react-router-dom'
 const Flex = styled.div`
   display: flex;
   flex-direction: row;
-  /* flex-grow: 4; */
   flex-wrap: wrap;
   justify-content: space-evenly;
 `
