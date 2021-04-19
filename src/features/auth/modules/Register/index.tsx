@@ -297,13 +297,13 @@ export default function Register() {
             </InputField>
             {mechanicalVentilation === 'Yes' ? (
               <InputField label="Air Circulation">
-                <Field as="select" name="airCirculation">
+                <Field as="select" name="airCirculation" defaultValue="No">
                   <option
                     value=""
                     label="If you have fans / AC, do they recirculate indoor air or source it from outside?"
                   />
                   <option value="Yes" label="Yes" />
-                  <option value="No" label="No" selected />
+                  <option value="No" label="No" />
                 </Field>
                 <ErrorMessage component={ErrorField} name="airCirculation" />
               </InputField>
