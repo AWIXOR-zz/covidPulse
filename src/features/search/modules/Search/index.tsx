@@ -9,8 +9,8 @@ import Typography from 'ui/components/Typography'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import items from 'data'
 import InputField from 'ui/components/InputField'
-// import Mask from 'assets/icons/Mask'
-// import HandSanitizer from 'assets/icons/HandSanitizer'
+import Mask from 'assets/icons/Mask'
+import HandSanitizer from 'assets/icons/HandSanitizer'
 import Wine from 'assets/icons/Wine'
 import Talking from 'assets/icons/Talking'
 import Singing from 'assets/icons/Singing'
@@ -99,8 +99,8 @@ export default function Search() {
                 {`${item.score} / 10`}
               </Typography>
               <IconsList>
-                {/* {item.mask ? <Mask /> : null} */}
-                {/* {item.handSanitizer ? <HandSanitizer /> : null} */}
+                {item.mask ? <Mask /> : null}
+                {item.handSanitizer ? <HandSanitizer /> : null}
                 {item.alcohol ? <Wine /> : null}
                 {item.alcohol ? <Talking /> : null}
                 {item.alcohol ? <Singing /> : null}
