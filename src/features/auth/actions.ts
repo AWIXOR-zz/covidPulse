@@ -61,7 +61,7 @@ type LoginSigninArgs = {
   dispatchUser: DispatchUser
   setFieldError: (key: string, value: string) => void
   setSubmitting: (arg: boolean) => void
-  values: UserValues
+  values: any
 }
 
 export const login = async ({
@@ -74,20 +74,33 @@ export const login = async ({
     console.log(values)
 
     // Here is the axios call for user login
-    const { data } = await axios.post(`${API_URL}auth/login`, values, {
+    // const { data } = await axios.post(`${API_URL}auth/login`, JSON.stringify(values), {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   withCredentials: true,
+    // })
+
+    const { data } = await fetch(`${API_URL}auth/login`, {
+      method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
-      withCredentials: true,
+      body: JSON.stringify(values),
     })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        return data
+      })
+
+    // setAuthToken(data1.token)
     console.log(data)
 
-    setAuthToken(data.token)
-    console.log(data.token)
+    // dispatchUser({ type: 'SAVE_USER', payload: data?.user })
 
-    dispatchUser({ type: 'SAVE_USER', payload: data?.user })
-
-    storage.set('token', data.token)
+    // storage.set('token', data.token)
     setSubmitting(false)
 
     history.push('/')
@@ -113,7 +126,6 @@ export const register = async ({
       },
       withCredentials: true,
     })
-    console.log(data)
 
     setAuthToken(data.token)
 
