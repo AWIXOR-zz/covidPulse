@@ -1,17 +1,24 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useReducer } from 'react'
 
-import items from 'data'
+// import items from 'data'
+import VenueReducer, { INITIAL_STATE } from '../reducers/VenueReducer'
 
 export const VenueContext = createContext()
+export const VenueDispatchContext = createContext()
 
 export const VenueProvider = ({ children }) => {
-  const [venues, setVenues] = useState(items)
+  // const [venues, setVenues] = useState(items)
+  const [venues, dispatchVenues] = useReducer(VenueReducer, INITIAL_STATE)
 
-  console.log(venues)
   const value = {
-    venues: [venues, setVenues],
+    venues: [venues, dispatchVenues],
   }
-  // console.log(value)
 
-  return <VenueContext.Provider value={value}>{children}</VenueContext.Provider>
+  return (
+    <VenueContext.Provider value={value}>
+      <VenueDispatchContext.Provider value={dispatchVenues}>
+        {children}
+      </VenueDispatchContext.Provider>
+    </VenueContext.Provider>
+  )
 }

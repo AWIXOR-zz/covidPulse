@@ -30,8 +30,9 @@ export default function VenueDetails() {
   const value = useContext(VenueContext)
 
   const [venues] = value.venues
-  const venueDetails = venues.filter((venue) => {
-    return venue.id.toString() === id.toString()
+  console.log(venues)
+  const venueDetails = venues.venues.filter((venue) => {
+    return venue._id.toString() === id.toString()
   })
   console.log(venueDetails)
   return (
@@ -60,18 +61,18 @@ export default function VenueDetails() {
                   <ProgressBar
                     striped
                     variant={
-                      item.score <= 4
+                      Math.floor(item.riskScore) <= 4
                         ? 'success'
-                        : item.score <= 7
+                        : item.riskScore <= 7
                         ? 'warning'
                         : 'danger'
                     }
-                    now={item.score * 10}
+                    now={item.riskScore * 10}
                     key={1}
                   />
                 </ProgressBar>
                 <Typography as="h2" fontSize={24} align="center">
-                  {`${item.score} / 10`}
+                  {`${Math.floor(item.riskScore)} / 10`}
                 </Typography>
               </div>
               <Typography as="p" fontSize={42} align="center" color="green">

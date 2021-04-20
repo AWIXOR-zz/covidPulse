@@ -50,13 +50,13 @@ export interface VenueData {
   Activities: string[]
 }
 export interface VenueDetails {
-  id?: number
+  _id: number
   venueName: string
   fullAddress: string
   description: string
   capacity: number
   location: string
-  score: number
+  riskScore: number
   venueType: string
   details: {
     venueCapacity: Number
