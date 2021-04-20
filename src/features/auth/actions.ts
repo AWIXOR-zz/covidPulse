@@ -11,44 +11,45 @@ export type UserValues = {
   username?: string
 }
 export type VenueValues = {
-  venueName: string
-  description: string
-  venueType: string
-
-  venueCapacity: string
-  capacityLimit: string
-  indoorCapacity: string
-  outdoorCapacity: string
-  timeSpentAtVenue: number
-
-  naturalVentilation: string
-  mechanicalVentilation: string
-  airCirculation: string
-
-  tables: string
-  tablesSeperation: string
-  plexiglass: string
-
-  handSanitizer: string
-  disinfection: string
-  physicalMenus: string
-  masks: string
-
-  talking: string
-  singing: string
-  dancing: string
-  alcoholConsumption: string
-
-  fullName: string
-  email: string
-  phoneNumber: string
-
-  fullAddress: string
-  postcode: string
-  city: string
-
-  password: string
-  confirmPassword: string
+  email: String
+  password: String
+  fullName: String
+  phoneNumber: String
+  fullAddress: String
+  postcode: String
+  city: String
+  venueName: String
+  description: String
+  venueType: String
+  details: {
+    venueCapacity: Number
+    capacityLimit: Number
+    outdoorIndoorCapacity: {
+      indoor: Number
+      outdoor: Number
+    }
+    ventilation: {
+      natural: String
+      mechanical: String
+    }
+    socialDistancingMeasures: {
+      tables: String
+      plexiglass: String
+    }
+    hygieneMeasures: {
+      handSanitizer: String
+      disinfection: String
+      physicalMenus: String
+    }
+    masks: String
+    alcoholConsumption: String
+    activities: {
+      talking: String
+      singing: String
+      dancing: String
+    }
+    timeSpentAtVenue: Number
+  }
 }
 type LoginSignupArgs = {
   dispatchUser: DispatchUser

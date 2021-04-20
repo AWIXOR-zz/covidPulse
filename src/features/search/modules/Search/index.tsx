@@ -5,6 +5,7 @@ import SEO from 'ui/components/SEO'
 import Card from 'ui/components/Card'
 // import { CardWrapper } from 'features/home/components/shared-style'
 import Typography from 'ui/components/Typography'
+import Pagination from 'react-bootstrap/Pagination'
 // import Button from 'ui/components/Button'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import items from 'data'
@@ -18,7 +19,7 @@ import Dancing from 'assets/icons/Dancing'
 import SmallSize from 'assets/icons/SmallSize'
 import MediumSize from 'assets/icons/MediumSize'
 import LargeSize from 'assets/icons/LargeSize'
-import { VenueData } from 'ui/interfaces'
+import { VenueDetails } from 'ui/interfaces'
 import { Link } from 'react-router-dom'
 const Flex = styled.div`
   display: flex;
@@ -28,6 +29,7 @@ const Flex = styled.div`
 `
 const CardItem = styled.div`
   padding: 2rem;
+  width: 100%;
   margin: 1rem;
   height: -webkit-fill-available;
   justify-content: space-around;
@@ -43,20 +45,37 @@ const IconsList = styled.div`
   margin-bottom: 12px;
   flex-wrap: wrap;
 `
+const Center = styled.div`
+  text-align: center;
+`
 export default function Search() {
-  const [venues, setVenues] = useState<VenueData[]>(items)
+  const [venues, setVenues] = useState<VenueDetails[]>(items)
+  const [active, setActive] = useState(1)
+  const [loading, setLoading] = useState(false)
   const [search, setSearch] = useState('')
-  const [filteredResults, setFilteredResults] = useState<VenueData[]>([])
+  const [filteredResults, setFilteredResults] = useState<VenueDetails[]>([])
 
   useEffect(() => {
+    // axios.post(`${API_URL}auth/login`}
+    setLoading(true)
     setFilteredResults(
       venues.filter(
         (venue) =>
-          venue.name.toLowerCase().includes(search.toLowerCase()) ||
+          venue.venueName.toLowerCase().includes(search.toLowerCase()) ||
           venue.location.toLowerCase().includes(search.toLowerCase())
       )
     )
+    setLoading(false)
   }, [search, venues])
+
+  let it = []
+  for (let number = 1; number <= 5; number++) {
+    it.push(
+      <Pagination.Item key={number} active={number === active}>
+        {number}
+      </Pagination.Item>
+    )
+  }
 
   return (
     <Container>
@@ -72,15 +91,14 @@ export default function Search() {
           placeholder="search for venue by name or location"
         />
       </InputField>
-      {/* <CardWrapper as={Card}> */}
       <Flex>
-        {filteredResults.map((item, index) => (
-          <Link to={`/venue/${item.id}`} key={index}>
+        {venues.map((item, index) => (
+          <Link to={`/venues/${item.id}`} key={index}>
             <CardItem as={Card}>
               <Typography as="h2" fontSize={18} align="center">
-                {item.name}
+                {item.venueName}
               </Typography>
-              <img src={item.image} alt={item.name} height={200} width={300} />
+
               <ProgressBar>
                 <ProgressBar
                   striped
@@ -99,12 +117,14 @@ export default function Search() {
                 {`${item.score} / 10`}
               </Typography>
               <IconsList>
-                {item.mask ? <Mask /> : null}
-                {item.handSanitizer ? <HandSanitizer /> : null}
-                {item.alcohol ? <Wine /> : null}
-                {item.alcohol ? <Talking /> : null}
-                {item.alcohol ? <Singing /> : null}
-                {item.alcohol ? <Dancing /> : null}
+                {item.details.masks ? <Mask /> : null}
+                {item.details.hygieneMeasures.handSanitizer ? (
+                  <HandSanitizer />
+                ) : null}
+                {item.details.alcoholConsumption ? <Wine /> : null}
+                {item.details.activities.talking === 'Yes' ? <Talking /> : null}
+                {item.details.activities.singing === 'Yes' ? <Singing /> : null}
+                {item.details.activities.dancing === 'Yes' ? <Dancing /> : null}
                 {item.capacity <= 3 ? (
                   <SmallSize />
                 ) : item.capacity <= 6 ? (
@@ -117,7 +137,11 @@ export default function Search() {
           </Link>
         ))}
       </Flex>
-      {/* </CardWrapper> */}
+      <Center>
+        <Pagination size="lg" style={{ justifyContent: 'center' }}>
+          {it}
+        </Pagination>
+      </Center>
     </Container>
   )
 }

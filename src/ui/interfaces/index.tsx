@@ -39,7 +39,6 @@ export interface SVGProps {
 export interface VenueData {
   id?: number
   name: string
-  image: string
   location: string
   score: number
   mask: boolean
@@ -49,4 +48,43 @@ export interface VenueData {
   socialDistancing: string
   covidLevel: string
   Activities: string[]
+}
+export interface VenueDetails {
+  id?: number
+  venueName: string
+  fullAddress: string
+  description: string
+  capacity: number
+  location: string
+  score: number
+  venueType: string
+  details: {
+    venueCapacity: Number
+    capacityLimit: Number
+    outdoorIndoorCapacity: {
+      indoor: Number
+      outdoor: Number
+    }
+    ventilation: {
+      natural: string
+      mechanical: string
+    }
+    socialDistancingMeasures: {
+      tables: string
+      plexiglass: string
+    }
+    hygieneMeasures: {
+      handSanitizer: string
+      disinfection: string
+      physicalMenus: string
+    }
+    masks: string
+    alcoholConsumption: string
+    activities: {
+      talking: string
+      singing: string
+      dancing: string
+    }
+    timeSpentAtVenue: Number
+  }
 }

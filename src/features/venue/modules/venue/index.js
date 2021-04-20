@@ -6,7 +6,6 @@ import Card from 'ui/components/Card'
 import { CardWrapper } from 'features/home/components/shared-style'
 import Typography from 'ui/components/Typography'
 import Button from 'ui/components/Button'
-import { Item } from 'react-flex-ready'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import Charts from 'features/venue/components/charts'
 import { Link, useParams } from 'react-router-dom'
@@ -31,30 +30,30 @@ export default function VenueDetails() {
   const value = useContext(VenueContext)
 
   const [venues] = value.venues
-  const details = venues.filter((venue) => {
+  const venueDetails = venues.filter((venue) => {
     return venue.id.toString() === id.toString()
   })
+  console.log(venueDetails)
   return (
     <Container>
-      <SEO url="/" title="Venue details" />
+      <SEO url="/venues/:id" title="Venue details" />
       <Typography as="p" fontSize={42} align="center">
         Venue Details
       </Typography>
       <Link to="/search">
-        <Button size="medium" variant="danger" style={{ margin: 24 }}>
+        <Button size="large" variant="danger" style={{ margin: 24 }}>
           Go back
         </Button>
       </Link>
-      {details.map((item, index) => (
+      {venueDetails.map((item, index) => (
         <CardWrapper as={Card} key={index}>
           <Flex>
-            <img src={item.image} alt={Item.name} height={300} />
             <ItemDetails>
               <Typography as="p" fontSize={32} align="center">
-                {item.name}
+                {item.venueName}
               </Typography>
               <Typography as="p" fontSize={24} align="center">
-                {item.address}
+                {item.fullAddress}
               </Typography>
               <div>
                 <ProgressBar>
@@ -86,11 +85,35 @@ export default function VenueDetails() {
                 Safety Precautions
               </Typography>
               <ul>
-                <li>Masks : Required all the time</li>
-                <li>Hand Sanitizer : Available</li>
-                <li>Alcohol Served : No</li>
-                <li>Venue Capacity : 15 people</li>
-                <li>Plexi-Glass : Yes</li>
+                <li>{`Masks : ${item.details.masks}`}</li>
+                <li>
+                  {`Hand Sanitizer : ${item.details.hygieneMeasures.handSanitizer}`}
+                </li>
+                <li>
+                  {`Disinfection : ${item.details.hygieneMeasures.disinfection}`}
+                </li>
+                <li>
+                  {`Physical Menus: ${item.details.hygieneMeasures.physicalMenus}`}
+                </li>
+                <li>{`Ventilation : ${
+                  item.details.ventilation.natural === 'Yes' ? 'natural' : ''
+                }, ${
+                  item.details.ventilation.mechanical === 'Yes'
+                    ? 'mechanical'
+                    : ''
+                }`}</li>
+                <li>{`Alcohol Served : ${item.details.alcoholConsumption}`}</li>
+                <li>{`Venue Capacity : ${item.capacity} people`}</li>
+                <li>{`Plexi-Glass : ${item.details.socialDistancingMeasures.plexiglass}`}</li>
+                <li>{`Tables : ${item.details.socialDistancingMeasures.tables}`}</li>
+                <li>{`Activities : ${
+                  item.details.activities.talking === 'Yes' ? 'Talking' : ''
+                }, ${
+                  item.details.activities.singing === 'Yes' ? 'Singing' : ''
+                }, ${
+                  item.details.activities.dancing === 'Yes' ? 'Dancing' : ''
+                }`}</li>
+                <li>{`Time spent at venue : ${item.details.timeSpentAtVenue}`}</li>
               </ul>
             </ItemDetails>
           </Flex>

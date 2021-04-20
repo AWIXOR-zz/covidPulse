@@ -18,7 +18,7 @@ const Unauthenticated = () => (
       <Route path="/" exact component={Home} />
       <Route path="/search" component={Search} />
       <Route path="/signin" component={Login} />
-      <Route path="/venue/:id" component={VenueDetails} />
+      <Route path="/venues/:id" component={VenueDetails} />
       <Route path="/signup" component={Register} />
       <Route component={NotFound} />
     </Switch>

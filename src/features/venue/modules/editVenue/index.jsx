@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
 import { Grid, Step, StepLabel, Stepper } from '@material-ui/core'
-// import Recaptcha from 'react-google-recaptcha'
 import {
   Formik,
   Form,
   Field,
   ErrorMessage,
-  FormikConfig,
-  FormikValues,
+  // FormikConfig,
+  // FormikValues,
 } from 'formik'
 import * as Yup from 'yup'
 import Spinner from 'react-spinkit'
@@ -18,40 +16,59 @@ import ErrorField from 'ui/components/ErrorField'
 import Button from 'ui/components/Button'
 import Card from 'ui/components/Card'
 import SEO from 'ui/components/SEO'
-
+import { useParams } from 'react-router-dom'
+import { VenueContext } from 'features/search/providers/VenueProvider'
 import useDispatchUser from 'features/auth/hooks/useDispatchUser'
-import { register } from 'features/auth/actions'
-import { LANDING_PAGE_URL } from 'config'
+import { EditVenueDetails } from 'features/venue/actions'
+
 import {
   Wrapper,
-  Center,
+  // Center,
   Title,
   CardWrapper,
 } from 'features/auth/components/shared-style'
-// const sleep = (time: number) => new Promise((acc) => setTimeout(acc, time))
 
-export default function Register() {
+export default function EditVenue() {
+  const { id } = useParams()
+  const value = useContext(VenueContext)
+
+  const [venues] = value.venues
+  const venueDetails = venues.filter((venue) => {
+    return venue.id.toString() === id.toString()
+  })
+
+  const {
+    fullAddress,
+    venueName,
+    description,
+    venueType,
+    location,
+    score,
+    capacity,
+    details,
+  } = venueDetails[0]
+  console.log(venueName)
   const dispatchUser = useDispatchUser()
   const [mechanicalVentilation, setMechanicalVentilation] = useState('')
-  const handleChange = (e: any) => {
+  const handleChange = (e) => {
     setMechanicalVentilation(e.target.value)
   }
   return (
     <Container>
-      <SEO url="/register" title="Register" />
+      <SEO url="/edit-venue" title="Edit venue" />
       <Wrapper>
         <FormikStepper
           // enableReinitialize
           initialValues={{
-            venueName: '',
-            description: '',
-            venueType: '',
+            venueName: venueName,
+            description: description,
+            venueType: venueType,
 
-            venueCapacity: '',
-            capacityLimit: '',
-            indoorCapacity: '',
-            outdoorCapacity: '',
-            timeSpentAtVenue: '',
+            venueCapacity: details.venueCapacity,
+            capacityLimit: details.capacityLimit,
+            indoorCapacity: details.outdoorIndoorCapacity.indoor,
+            outdoorCapacity: details.outdoorIndoorCapacity.outdoor,
+            timeSpentAtVenue: details.timeSpentAtVenue,
 
             naturalVentilation: '',
             mechanicalVentilation: '',
@@ -70,22 +87,7 @@ export default function Register() {
             singing: '',
             dancing: '',
             alcoholConsumption: '',
-
-            fullName: '',
-            email: '',
-            phoneNumber: '',
-
-            fullAddress: '',
-            postcode: '',
-            city: '',
-
-            password: '',
-            confirmPassword: '',
           }}
-          // onSubmit={async (values) => {
-          //   await sleep(3000)
-          //   console.log('values', values)
-          // }}
           onSubmit={async (
             {
               venueName,
@@ -115,34 +117,16 @@ export default function Register() {
               singing,
               dancing,
               alcoholConsumption,
-
-              fullName,
-              email,
-              phoneNumber,
-
-              fullAddress,
-              postcode,
-              city,
-
-              password,
-              confirmPassword,
             },
 
             { setSubmitting, setFieldError }
           ) => {
             try {
-              register({
+              EditVenueDetails({
                 dispatchUser,
                 setFieldError,
                 setSubmitting,
                 values: {
-                  email: email,
-                  password: password,
-                  fullName: fullName,
-                  phoneNumber: phoneNumber,
-                  fullAddress: fullAddress,
-                  postcode: postcode,
-                  city: city,
                   venueName: venueName,
                   description: description,
                   venueType: venueType,
@@ -549,22 +533,12 @@ export default function Register() {
   )
 }
 
-export interface FormikStepProps
-  extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
-  label: string
-}
-
-export function FormikStep({ children }: FormikStepProps) {
+export function FormikStep({ children }) {
   return <>{children}</>
 }
 
-export function FormikStepper({
-  children,
-  ...props
-}: FormikConfig<FormikValues>) {
-  const childrenArray = React.Children.toArray(
-    children
-  ) as React.ReactElement<FormikStepProps>[]
+export function FormikStepper({ children, ...props }) {
+  const childrenArray = React.Children.toArray(children)
   const [step, setStep] = useState(0)
   const currentChild = childrenArray[step]
   const [completed, setCompleted] = useState(false)
@@ -635,23 +609,6 @@ export function FormikStepper({
                 </Button>
               </Grid>
             </Grid>
-            <Center>
-              <p>
-                Already have an account? <Link to="/">Login</Link>
-              </p>
-            </Center>
-            {isLastStep() ? (
-              <Center>
-                <p>
-                  By signing up you agree to the{' '}
-                  <a href={`${LANDING_PAGE_URL}terms-of-use`}>Terms of Use</a>{' '}
-                  and the{' '}
-                  <a href={`${LANDING_PAGE_URL}privacy-policy`}>
-                    Privacy Policy
-                  </a>
-                </p>
-              </Center>
-            ) : null}
           </CardWrapper>
         </Form>
       )}
