@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import React, { useState, useEffect, Suspense, lazy } from 'react'
 import Spinner from 'react-spinkit'
 import UserProvider from 'features/auth/providers/UserProvider'
 
@@ -15,10 +15,23 @@ const Authenticated = lazy(() => import('./Authenticated'))
 const Unauthenticated = lazy(() => import('./Unauthenticated'))
 
 const Routes = () => {
-  const user = axios.get(`${API_URL}auth/profile`)
-  console.log(user)
+  const [loggedIn, setLoggednIn] = useState(false)
+  useEffect(() => {
+    axios
+      .get(`${API_URL}auth/profile`)
+      .then((response) => {
+        console.log(response.status)
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          setLoggednIn(false)
+        }
+      })
+  }, [])
 
-  return user ? (
+  // console.log(user)
+
+  return loggedIn ? (
     <Suspense fallback={<Spinner name="wandering-cubes" color="aqua" />}>
       <Authenticated />
     </Suspense>
